@@ -4,7 +4,20 @@
 
 @layer components {
   .red-overlay {
-    @apply absolute left-0 top-0 h-full w-full bg-red-600 opacity-80;
-    clip-path: polygon(0 0, 100% 0, 20% 100%, 0% 100%);
+    @apply absolute left-0 top-0 h-full w-full bg-red-600;
+    clip-path: polygon(0 0, 100% 0, 30% 100%, 0% 100%);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  .red-overlay:hover {
+    opacity: 0.8;
+  }
+
+  @media (min-width: 640px) and (max-width: 1024px) {
+    .red-overlay {
+      clip-path: polygon(0 0, 100% 0, 25% 100%, 0% 100%);
+      opacity: 0.65;
+    }
   }
 }

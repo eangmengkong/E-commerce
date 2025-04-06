@@ -1,5 +1,3 @@
-import SidebarPage from '../components/layout/SidebarPage';
-
 import { FaHeart, FaEye, FaCartArrowDown, FaStar } from 'react-icons/fa';
 import { Accessories } from '../api/product';
 import { useState } from 'react';
@@ -11,6 +9,7 @@ import { useAtom } from 'jotai';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, ShoppingCart } from 'lucide-react';
+
 const AccessoriesPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const productsPerPage = 9;
@@ -77,12 +76,7 @@ const AccessoriesPage = () => {
         </button>
       </div>
 
-      <div className="flex flex-col gap-x-5 lg:grid lg:grid-cols-[220px_1fr_220px]">
-        {/* Sidebar */}
-        <div className="hidden md:block">
-          <SidebarPage />
-        </div>
-
+      <div className="flex flex-col gap-x-5 lg:grid lg:grid-cols-[1fr_220px]">
         {/* HotDeals */}
         <div className="container mx-auto flex max-w-[59.375rem] flex-col justify-center">
           <div className="grid grid-cols-2 gap-5 sm:grid-cols-2 lg:grid-cols-3">

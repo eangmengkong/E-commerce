@@ -20,24 +20,47 @@ import { CheckCircle, ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+// Custom Button Group Component
+const CustomButtonGroup = ({ next, previous }) => {
+  return (
+    <div className="absolute -top-12 right-0 flex gap-2">
+      <button
+        onClick={previous}
+        className="rounded-full bg-gray-200 p-2 hover:bg-gray-300 sm:p-3"
+      >
+        <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+      </button>
+      <button
+        onClick={next}
+        className="rounded-full bg-gray-200 p-2 hover:bg-gray-300 sm:p-3"
+      >
+        <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+      </button>
+    </div>
+  );
+};
+
 export const CartItemNewProduct = () => {
   const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 1536 },
+      items: 5,
+    },
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
+      breakpoint: { max: 1536, min: 1024 },
       items: 4,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 3,
+      breakpoint: { max: 1024, min: 640 },
+      items: 2,
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 2,
+      breakpoint: { max: 640, min: 0 },
+      items: 1,
     },
   };
 
   // addtoCart
-
   const [cart, setCart] = useAtom(cartActionsAtom);
   const [showCartPopup, setShowCartPopup] = useState(false);
 
@@ -56,7 +79,6 @@ export const CartItemNewProduct = () => {
   };
 
   // addtowishlist
-
   const [wishlist, setWishlist] = useAtom(wishlistActionsAtom);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -71,32 +93,45 @@ export const CartItemNewProduct = () => {
       return prev;
     });
   };
+
   return (
-    <div>
+    <div className="w-full">
       <div className="new-product-cart">
         <Carousel
           disableSwipeOnMobile
           disableDrag
           responsive={responsive}
           forSSR
-          slidesToSlide={2}
+          slidesToSlide={1}
           infinite={true}
           className="test"
-          removeArrowOnDeviceType={['tablet', 'mobile']}
+          removeArrowOnDeviceType={['mobile']}
+          customButtonGroup={<CustomButtonGroup />}
         >
           {ProductSummary.NewProduct.map((card, i) => (
-            <div key={i} className="mr-2 place-items-center gap-2 border">
-              <Link to={`/productdetail/${card.id}`}>
-                <img src={card.img} alt="Product" />
+            <div
+              key={i}
+              className="mx-2 flex h-[500px] flex-col items-center gap-2 rounded-lg border bg-white p-2 shadow-sm transition-all hover:shadow-md sm:p-3"
+            >
+              <Link to={`/productdetail/${card.id}`} className="w-full">
+                <div className="relative h-64 w-full overflow-hidden rounded-lg sm:h-72 md:h-80">
+                  <img
+                    src={card.img}
+                    alt="Product"
+                    className="h-full w-full object-contain p-2"
+                  />
+                </div>
               </Link>
-              <div className="h-[6.25rem] place-items-center">
-                <h4 className="text-[20px] font-bold">{card.cat}</h4>
-                <h1>{card.name}</h1>
-                <h3>{card.price} $</h3>
+              <div className="flex h-40 flex-col items-center justify-center gap-1 text-center">
+                <h4 className="text-base font-bold sm:text-lg md:text-xl">{card.cat}</h4>
+                <h1 className="text-xs sm:text-sm md:text-base">{card.name}</h1>
+                <h3 className="text-sm font-semibold text-red-600 sm:text-base md:text-lg">
+                  ${card.price}
+                </h3>
               </div>
-              <div className="flex gap-3 p-2">
+              <div className="flex w-full items-center justify-center gap-4 p-2">
                 <FaHeart
-                  className={`cursor-pointer text-[1.5625rem] ${
+                  className={`cursor-pointer text-lg sm:text-xl md:text-2xl ${
                     wishlist.some((w) => w.id === card.id)
                       ? 'text-red-500'
                       : 'text-gray-500 hover:text-red-500'
@@ -104,13 +139,16 @@ export const CartItemNewProduct = () => {
                   onClick={() => addToWishlist(card)}
                 />
                 <FaCartArrowDown
-                  className="cursor-pointer text-[2.1875rem] text-gray-500 hover:text-green-500"
+                  className="cursor-pointer text-xl text-gray-500 hover:text-green-500 sm:text-2xl md:text-3xl"
                   onClick={() => addToCart(card)}
                 />
               </div>
             </div>
           ))}
         </Carousel>
+
+      
+
         {/* wishlistpopup */}
         <AnimatePresence>
           {showPopup && (
@@ -162,141 +200,64 @@ export const CartItemNewProduct = () => {
   );
 };
 
-export const CartItemTopSell = () => {
-  const [cart, setCart] = useAtom(cartActionsAtom);
-  const [showCartPopup, setShowCartPopup] = useState(false);
-  const addToCart = (product) => {
-    setCart((prev) =>
-      prev.some((item) => item.id === product.id)
-        ? prev.map((item) =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item,
-          )
-        : [...prev, { ...product, quantity: 1 }],
-    );
-    setShowCartPopup(true);
-    setTimeout(() => setShowCartPopup(false), 2000);
-  };
-
-  const [wishlist, setWishlist] = useAtom(wishlistActionsAtom);
-  const [showPopup, setShowPopup] = useState(false);
-
-  const addToWishlist = (item) => {
-    setWishlist((prev) => {
-      const isInWishlist = prev.some((w) => w.id === item.id);
-      if (!isInWishlist) {
-        setShowPopup(true);
-        setTimeout(() => setShowPopup(false), 2000);
-        return [...prev, item];
-      }
-      return prev;
-    });
-  };
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 4,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 3,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 2,
-    },
-  };
+// Function to generate Swiper slides
+const generateSlides = (products) => {
   return (
-    <div>
-      <div className="new-product-cart">
-        <Carousel
-          disableSwipeOnMobile
-          disableDrag
-          responsive={responsive}
-          forSSR
-          slidesToSlide={2}
-          infinite={true}
-          className="test"
-          removeArrowOnDeviceType={['tablet', 'mobile']}
-        >
-          {ProductSummary.TopSell.map((card, i) => (
-            <div key={i} className="mr-2 place-items-center gap-2 border">
-              <Link to={`/productdetail/${card.id}`}>
-                <img src={card.img} alt="Product" />
+    <>
+      <SwiperSlide>
+        <div className="flex flex-col gap-4">
+          {products.slice(0, 3).map((product) => (
+            <div
+              key={product.id}
+              className="flex items-center gap-4 border-b p-4"
+            >
+              <Link to={`/productdetail/${product.id}`}>
+                <img
+                  src={product.img}
+                  alt={product.name}
+                  className="h-20 w-20 object-cover"
+                />
               </Link>
-              <div className="h-[6.25rem] place-items-center">
-                <h4 className="text-[20px] font-bold">{card.cat}</h4>
-                <h1>{card.name}</h1>
-                <h3>{card.price} $</h3>
-              </div>
-              <div className="flex gap-3 p-2">
-                <div className="flex gap-3 p-2">
-                  <FaHeart
-                    className={`cursor-pointer text-[1.5625rem] ${
-                      wishlist.some((w) => w.id === card.id)
-                        ? 'text-red-500'
-                        : 'text-gray-500 hover:text-red-500'
-                    }`}
-                    onClick={() => addToWishlist(card)}
-                  />
-                  <FaCartArrowDown
-                    className="cursor-pointer text-[2.1875rem] text-gray-500 hover:text-green-500"
-                    onClick={() => addToCart(card)}
-                  />
-                </div>
+              <div>
+                <p className="text-xs text-gray-500">{product.cat}</p>
+                <p className="font-bold">{product.name}</p>
+                <p className="font-bold text-red-500">
+                  {product.price}$
+                  <s className="text-gray-400">{product.oldPrice}$</s>
+                </p>
               </div>
             </div>
           ))}
-        </Carousel>
-        {/* wishlistpopup */}
-        <AnimatePresence>
-          {showPopup && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4 }}
-              className="fixed inset-0 flex items-center justify-center bg-black/40"
+        </div>
+      </SwiperSlide>
+
+      <SwiperSlide>
+        <div className="flex flex-col gap-4">
+          {products.slice(3, 6).map((product) => (
+            <div
+              key={product.id}
+              className="flex items-center gap-4 border-b p-4"
             >
-              <div className="flex flex-col items-center gap-4 rounded-xl bg-white px-8 py-6 text-center shadow-2xl">
-                <CheckCircle className="h-14 w-14 animate-pulse text-green-500" />
-                <p className="text-2xl font-semibold text-gray-800">
-                  Add To Wishlist Successfully
+              <Link to={`/productdetail/${product.id}`}>
+                <img
+                  src={product.img}
+                  alt={product.name}
+                  className="h-20 w-20 object-cover"
+                />
+              </Link>
+              <div>
+                <p className="text-xs text-gray-500">{product.cat}</p>
+                <p className="font-bold">{product.name}</p>
+                <p className="font-bold text-red-500">
+                  {product.price}$
+                  <s className="text-gray-400">{product.oldPrice}$</s>
                 </p>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        {/* cartpopup */}
-        <AnimatePresence>
-          {showCartPopup && (
-            <motion.div
-              initial={{ y: -50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -50, opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="fixed right-5 top-5 flex w-64 flex-col gap-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 p-4 shadow-xl"
-            >
-              <div className="flex items-center gap-3">
-                <ShoppingCart className="h-6 w-6 text-white" />
-                <p className="font-medium text-white">
-                  {' '}
-                  Add To Cart Successfully
-                </p>
-              </div>
-              {/* Animated Progress Bar */}
-              <motion.div
-                initial={{ width: '0%' }}
-                animate={{ width: '100%' }}
-                transition={{ duration: 2 }}
-                className="h-1 rounded bg-white"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
+            </div>
+          ))}
+        </div>
+      </SwiperSlide>
+    </>
   );
 };
 
@@ -390,66 +351,5 @@ export const TopSelling = () => {
         </Swiper>
       </div>
     </div>
-  );
-};
-
-// Function to generate Swiper slides
-const generateSlides = (products) => {
-  return (
-    <>
-      <SwiperSlide>
-        <div className="flex flex-col gap-4">
-          {products.slice(0, 3).map((product) => (
-            <div
-              key={product.id}
-              className="flex items-center gap-4 border-b p-4"
-            >
-              <Link to={`/productdetail/${product.id}`}>
-                <img
-                  src={product.img}
-                  alt={product.name}
-                  className="h-20 w-20 object-cover"
-                />
-              </Link>
-              <div>
-                <p className="text-xs text-gray-500">{product.cat}</p>
-                <p className="font-bold">{product.name}</p>
-                <p className="font-bold text-red-500">
-                  {product.price}$
-                  <s className="text-gray-400">{product.oldPrice}$</s>
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </SwiperSlide>
-
-      <SwiperSlide>
-        <div className="flex flex-col gap-4">
-          {products.slice(3, 6).map((product) => (
-            <div
-              key={product.id}
-              className="flex items-center gap-4 border-b p-4"
-            >
-              <Link to={`/productdetail/${product.id}`}>
-                <img
-                  src={product.img}
-                  alt={product.name}
-                  className="h-20 w-20 object-cover"
-                />
-              </Link>
-              <div>
-                <p className="text-xs text-gray-500">{product.cat}</p>
-                <p className="font-bold">{product.name}</p>
-                <p className="font-bold text-red-500">
-                  {product.price}$
-                  <s className="text-gray-400">{product.oldPrice}$</s>
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </SwiperSlide>
-    </>
   );
 };

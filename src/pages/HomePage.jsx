@@ -14,14 +14,16 @@ import Shop1 from '../assets/images/shop1.jpg';
 import Shop2 from '../assets/images/shop2.jpeg';
 import Shop3 from '../assets/images/shop3.jpg';
 import Dealbanner from '../assets/images/hotdeal.png';
-import {
-  CartItemNewProduct,
-  CartItemTopSell,
-  TopSelling,
-} from '../components/product/Product-Item';
+import { CartItemNewProduct, TopSelling } from '../components/product/Product-Item';
 import { Link } from 'react-router-dom';
+import CountdownTimer from '../components/CountdownTimer';
 
 const HomePage = () => {
+  const handleCountdownComplete = () => {
+    console.log('Countdown completed!');
+    // You can add any action here when the countdown completes
+  };
+
   return (
     <div className="wrapper">
       <div className="container mx-auto max-w-[1200px]">
@@ -46,7 +48,7 @@ const HomePage = () => {
 
         {/* Collection */}
         <div>
-          <div className="flex flex-col gap-6 lg:grid lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <div className="relative overflow-hidden border bg-gray-300">
               <div className="red-overlay"></div>
               <Link to={`/laptops`}>
@@ -57,7 +59,7 @@ const HomePage = () => {
                   <span className="text-sm">Shop Now →</span>
                 </div>
               </Link>
-              <img src={Shop1} className="h-[300px] w-[400px]" />
+              <img src={Shop1} className="h-[300px] w-full object-cover" />
             </div>
 
             <div className="relative overflow-hidden border bg-gray-300">
@@ -71,7 +73,7 @@ const HomePage = () => {
                   <span className="text-sm">Shop Now →</span>
                 </div>
               </Link>
-              <img src={Shop2} className="h-[300px] w-[400px]" />
+              <img src={Shop2} className="h-[300px] w-full object-cover" />
             </div>
             <div className="relative overflow-hidden border bg-gray-300">
               <div className="red-overlay"></div>
@@ -83,7 +85,7 @@ const HomePage = () => {
                   <span className="text-sm">Shop Now →</span>
                 </div>
               </Link>
-              <img src={Shop3} className="h-[300px] w-[400px]" />
+              <img src={Shop3} className="h-[300px] w-full object-cover" />
             </div>
           </div>
         </div>
@@ -101,27 +103,19 @@ const HomePage = () => {
         </div>
 
         {/* Hot-Deal-This-Week */}
-        <div className="relative mt-[6.25rem] hidden lg:block">
-          <img src={Dealbanner} alt="" className="w-full" />
+        <div className="relative h-[500px] w-full">
+          <img
+            src={Dealbanner}
+            alt="Deal Banner"
+            className="h-full w-full object-cover"
+          />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="time flex gap-5 text-white">
-              <span className="rounded-full bg-red-500 p-3 text-center">
-                02 <br />
-                Days
-              </span>
-              <span className="rounded-full bg-red-500 p-3 text-center">
-                10 <br />
-                Hours
-              </span>
-              <span className="rounded-full bg-red-500 p-3 text-center">
-                34 <br />
-                Mins
-              </span>
-              <span className="rounded-full bg-red-500 p-3 text-center">
-                60 <br />
-                Sec
-              </span>
-            </div>
+            <CountdownTimer 
+              initialDays={7}
+              onComplete={handleCountdownComplete}
+              autoRestart={true}
+              restartDelay={1000}
+            />
             <div className="mt-3 place-items-center">
               <h1 className="text-[1.875rem] font-extrabold">
                 HOT DEAL THIS WEEK
@@ -143,12 +137,8 @@ const HomePage = () => {
             <h2 className="font-bold">TOP SELLING</h2>
           </div>
           <div>
-            <CartItemTopSell />
+            <TopSelling />
           </div>
-        </div>
-
-        <div className="">
-          <TopSelling />
         </div>
       </div>
     </div>
