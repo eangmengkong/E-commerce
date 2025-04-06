@@ -105,8 +105,9 @@ export const CartItemNewProduct = () => {
           slidesToSlide={1}
           infinite={true}
           className="test"
-          removeArrowOnDeviceType={['mobile']}
+          removeArrowOnDeviceType={[]} // Remove mobile from this array to show buttons on mobile
           customButtonGroup={<CustomButtonGroup />}
+          renderButtonGroupOutside={true}
         >
           {ProductSummary.NewProduct.map((card, i) => (
             <div
@@ -123,7 +124,9 @@ export const CartItemNewProduct = () => {
                 </div>
               </Link>
               <div className="flex h-40 flex-col items-center justify-center gap-1 text-center">
-                <h4 className="text-base font-bold sm:text-lg md:text-xl">{card.cat}</h4>
+                <h4 className="text-base font-bold sm:text-lg md:text-xl">
+                  {card.cat}
+                </h4>
                 <h1 className="text-xs sm:text-sm md:text-base">{card.name}</h1>
                 <h3 className="text-sm font-semibold text-red-600 sm:text-base md:text-lg">
                   ${card.price}
@@ -146,8 +149,6 @@ export const CartItemNewProduct = () => {
             </div>
           ))}
         </Carousel>
-
-      
 
         {/* wishlistpopup */}
         <AnimatePresence>
