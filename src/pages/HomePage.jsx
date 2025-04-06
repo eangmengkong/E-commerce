@@ -21,7 +21,8 @@ import CountdownTimer from '../components/CountdownTimer';
 const HomePage = () => {
   const handleCountdownComplete = () => {
     console.log('Countdown completed!');
-    // You can add any action here when the countdown completes
+    console.log('See you next time!');
+    
   };
 
   return (
