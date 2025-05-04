@@ -51,16 +51,20 @@ const Header = () => {
     }
 
     const results = allItems.filter((item) =>
-      item.name.toLowerCase().includes(query.toLowerCase())
+      item.name.toLowerCase().includes(query.toLowerCase()),
     );
     setFilteredItems(results);
   };
 
   return (
-    <div className="wrapper">
-      <div className="container bg-gray-600">
+    <div className="w-full overflow-x-hidden">
+      {' '}
+      {/* Add this wrapper */}
+      <div className="w-full bg-gray-600">
+        {' '}
+        {/* Remove container class */}
         {/* header-info */}
-        <div className="top-header mx-auto max-w-[75rem] p-2 text-white sm:flex sm:justify-between">
+        <div className="top-header mx-auto w-full max-w-[75rem] p-2 text-white sm:flex sm:justify-between md:max-w-[90vw] md:px-2">
           {/* left */}
           <div className="hidden gap-3 sm:flex">
             <div className="flex items-center gap-1">
@@ -88,29 +92,26 @@ const Header = () => {
             </div>
           </div>
         </div>
-
-        <div className="main-header-container bg-black py-4">
-          <div className="mx-auto flex max-w-[75rem] flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="main-header-container w-full bg-black py-4">
+          <div className="mx-auto flex w-full max-w-[75rem] flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between md:max-w-[90vw] md:flex-row md:items-center md:justify-between md:px-2">
             {/* Logo and Sidebar Toggle */}
-            <div className="flex items-center justify-between">
+            <div className="flex w-full items-center justify-between md:w-auto">
               <div className="flex items-center gap-4">
                 <Link to="/" className="text-2xl font-bold text-white">
                   LOGO
                 </Link>
                 {/* Sidebar Toggle - Now visible on all screens */}
                 <button
-                  className="text-white"
+                  className="text-white md:hidden"
                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                 >
                   {isSidebarOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
                 </button>
               </div>
-
-              {/* Mobile Menu Button - Removed since we're using sidebar toggle for all screens */}
             </div>
 
-            {/* Search Bar - Now visible on mobile */}
-            <div className="relative w-full sm:flex-1 sm:px-4">
+            {/* Search Bar - Now visible on mobile and tablets */}
+            <div className="relative w-full sm:flex-1 sm:px-4 md:w-1/2">
               <div className="relative">
                 <input
                   type="text"
@@ -150,7 +151,7 @@ const Header = () => {
             </div>
 
             {/* Cart and Wishlist */}
-            <div className="flex items-center gap-4">
+            <div className="flex w-full items-center justify-end gap-4 md:w-auto">
               <Link to="/wishlist" className="text-white hover:text-red-500">
                 Wishlist
               </Link>
@@ -160,11 +161,10 @@ const Header = () => {
             </div>
           </div>
         </div>
-
         {/* Sidebar Dropdown - Now visible on all screens */}
         {isSidebarOpen && (
           <div className="fixed left-0 top-[120px] z-50 w-full bg-gray-900 shadow-lg">
-            <div className="mx-auto max-w-[75rem]">
+            <div className="mx-auto w-full max-w-[75rem]">
               <SidebarPage />
             </div>
           </div>

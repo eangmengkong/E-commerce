@@ -3,8 +3,10 @@ import { wishlistAtom } from '../atom/wishlistAtom';
 import { cartAtom } from '../atom/cartAtom';
 import { FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { useHydrateCartAndWishlist } from '../hooks/useHydrateCartAndWishlist';
 
 const WishlistPage = () => {
+  useHydrateCartAndWishlist();
   const [cart, setCart] = useAtom(cartAtom);
   const [wishlist, setWishlist] = useAtom(wishlistAtom);
   const navigate = useNavigate();

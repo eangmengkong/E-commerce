@@ -1,16 +1,17 @@
 import { atom } from 'jotai';
 
-// Load cart from localStorage (or start empty)
-const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
+// Initialize with empty array to avoid SSR localStorage access
+export const cartAtom = atom([]);
 
-export const cartAtom = atom(savedCart);
-
+// Writable atom to update cart and persist to localStorage
 export const cartActionsAtom = atom(
   (get) => get(cartAtom),
   (get, set, updateCart) => {
     const newCart = updateCart(get(cartAtom));
     set(cartAtom, newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart)); // Save to localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart', JSON.stringify(newCart)); // Save to localStorage on client only
+    }
   },
 );
 

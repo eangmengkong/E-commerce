@@ -14,17 +14,13 @@ import Shop1 from '../assets/images/shop1.jpg';
 import Shop2 from '../assets/images/shop2.jpeg';
 import Shop3 from '../assets/images/shop3.jpg';
 import Dealbanner from '../assets/images/hotdeal.png';
-import { CartItemNewProduct, TopSelling } from '../components/product/Product-Item';
+import {
+  CartItemNewProduct,
+  TopSelling,
+} from '../components/product/Product-Item';
 import { Link } from 'react-router-dom';
-import CountdownTimer from '../components/CountdownTimer';
 
 const HomePage = () => {
-  const handleCountdownComplete = () => {
-    console.log('Countdown completed!');
-    console.log('See you next time!');
-    
-  };
-
   return (
     <div className="wrapper">
       <div className="container mx-auto max-w-[1200px]">
@@ -111,12 +107,6 @@ const HomePage = () => {
             className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <CountdownTimer 
-              initialDays={7}
-              onComplete={handleCountdownComplete}
-              autoRestart={true}
-              restartDelay={1000}
-            />
             <div className="mt-3 place-items-center">
               <h1 className="text-[1.875rem] font-extrabold">
                 HOT DEAL THIS WEEK

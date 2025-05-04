@@ -7,9 +7,9 @@ const Navbar = () => {
   return (
     <div className="wrapper">
       <div className="container mx-auto max-w-[75rem] py-4">
-        {/* Mobile Menu Button - Hidden on larger screens */}
+        {/* Mobile Menu Button - Visible only on mobile (sm and below), hidden on tablets (md) and laptops (lg) */}
         <button
-          className="mb-4 block w-full rounded-lg bg-gray-100 p-3 text-center text-sm font-medium sm:hidden"
+          className="mb-4 block w-full rounded-lg bg-gray-100 p-3 text-center text-sm font-medium sm:block md:hidden"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? 'Close Menu' : 'Open Menu'}
@@ -19,7 +19,7 @@ const Navbar = () => {
         <ul
           className={`${
             isMobileMenuOpen ? 'block' : 'hidden'
-          } flex flex-col items-center gap-2 sm:flex sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4`}
+          } flex flex-col items-center gap-2 sm:flex sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4 md:flex md:flex-row md:justify-between`}
         >
           <NavLink
             to="/home"

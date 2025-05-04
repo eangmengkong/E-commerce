@@ -112,10 +112,10 @@ export const CartItemNewProduct = () => {
           {ProductSummary.NewProduct.map((card, i) => (
             <div
               key={i}
-              className="mx-2 flex h-[500px] flex-col items-center gap-2 rounded-lg border bg-white p-2 shadow-sm transition-all hover:shadow-md sm:p-3"
+              className="mx-2 flex h-auto min-h-[400px] max-w-full flex-col items-center gap-2 rounded-lg border bg-white p-2 shadow-sm transition-all hover:shadow-md sm:min-h-[450px] sm:p-3 md:min-h-[500px]"
             >
               <Link to={`/productdetail/${card.id}`} className="w-full">
-                <div className="relative h-64 w-full overflow-hidden rounded-lg sm:h-72 md:h-80">
+                <div className="relative h-48 w-full overflow-hidden rounded-lg sm:h-56 md:h-64">
                   <img
                     src={card.img}
                     alt="Product"
@@ -123,7 +123,7 @@ export const CartItemNewProduct = () => {
                   />
                 </div>
               </Link>
-              <div className="flex h-40 flex-col items-center justify-center gap-1 text-center">
+              <div className="flex h-auto min-h-[150px] flex-col items-center justify-center gap-1 text-center sm:min-h-[160px] md:min-h-[170px]">
                 <h4 className="text-base font-bold sm:text-lg md:text-xl">
                   {card.cat}
                 </h4>
@@ -266,7 +266,7 @@ export const TopSelling = () => {
   return (
     <div className="grid grid-cols-1 gap-5 md:flex md:justify-between lg:flex lg:justify-between">
       {/* First Column */}
-      <div className="w-[350px]">
+      <div className="w-full max-w-xs md:w-1/3">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-xl font-bold">TOP SELLING</h2>
           <div className="flex gap-2">
@@ -295,7 +295,7 @@ export const TopSelling = () => {
       </div>
 
       {/* Second Column */}
-      <div className="w-[350px]">
+      <div className="w-full max-w-xs md:w-1/3">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-xl font-bold">TOP SELLING</h2>
           <div className="flex gap-2">
@@ -324,7 +324,7 @@ export const TopSelling = () => {
       </div>
 
       {/* Third Column */}
-      <div className="w-[350px]">
+      <div className="w-full max-w-xs md:w-1/3">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-xl font-bold">TOP SELLING</h2>
           <div className="flex gap-2">
