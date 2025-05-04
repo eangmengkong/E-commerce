@@ -9,4 +9,4 @@ Currently, two official plugins are available:
 ![image alt](https://github.com/eangmengkong/ecommerceStore/blob/ca7e147daacacc50ca475e7962af7f1bf4bdbc3e/ecommerceStoreScreenshot.jpg)
 
 ## Live Demo 🌍  
-🔗 [ecomkhstore.netlify.app](https://ecomkhstore.netlify.app/)
+🔗 [e-commerce](https://e-commerce-14nm69ap9-eangmengkongs-projects.vercel.app/)
