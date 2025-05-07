@@ -9,4 +9,4 @@ Currently, two official plugins are available:
 ![image alt](https://github.com/eangmengkong/E-commerce/blob/88c2bfa915b2f5091394c053082356fcd49476a0/ecommerceStoreScreenshot.jpg)
 
 ## Live Demo 🌍  
-🔗 [e-commerce](https://e-commerce-14nm69ap9-eangmengkongs-projects.vercel.app/)
+🔗 [e-commerce](https://e-commerce-eangmengkongs-projects.vercel.app/)
